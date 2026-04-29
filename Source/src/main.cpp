@@ -15,9 +15,9 @@ void setup()
     initGlobal_RTOS_Objects();
 
     // Create Sensor Task: Reading temp and humi from DHT20 sensor and sending it to queue
-    xTaskCreate(temp_humi_monitor, "Task TEMP HUMI Monitor", 2048, NULL, 2, NULL);
+    xTaskCreate(temp_humi_monitor, "Task TEMP HUMI Monitor", 4096, NULL, 2, NULL);
     // Create LED Task: Receiving temperature data via Queue/Semaphore and adjusting the blink rate
-    xTaskCreate(led_control, "Task LED Blink", 2048, NULL, 2, NULL);
+    xTaskCreate(led_control, "Task LED Blink", 4096, NULL, 2, NULL);
 }
 
 void loop()
