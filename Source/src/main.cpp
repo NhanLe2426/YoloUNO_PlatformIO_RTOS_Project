@@ -1,7 +1,7 @@
 #include "global.h"
 
 #include "task_led.h"
-#include "neo_blinky.h"
+#include "task_neo_led.h"
 #include "temp_humi_monitor.h"
 // #include "mainserver.h"
 // #include "tinyml.h"
@@ -30,7 +30,9 @@ void setup()
     // Create Sensor Task: Reading temp and humi from DHT20 sensor and sending it to queue
     xTaskCreate(temp_humi_monitor, "Task TEMP HUMI Monitor", 4096, NULL, 2, NULL);
     // Create LED Task: Receiving temperature data via Queue/Semaphore and adjusting the blink rate
-    xTaskCreate(led_control, "Task LED Blink", 4096, NULL, 2, NULL);
+    xTaskCreate(LED_control, "Task LED Blink", 4096, NULL, 2, NULL);
+    // Create Neo LED Task: Receiving humidity data via Queue/Semaphore and adjustint the color
+    xTaskCreate(NeoLED_control, "Task NEO LED", 4096, NULL, 2, NULL);
 
     // xTaskCreate(neo_blinky, "Task NEO Blink", 2048, NULL, 2, NULL);
     // xTaskCreate(temp_humi_monitor, "Task TEMP HUMI Monitor", 2048, NULL, 2, NULL);

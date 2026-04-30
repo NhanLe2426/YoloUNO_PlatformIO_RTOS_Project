@@ -2,6 +2,7 @@
 
 QueueHandle_t qSensorData = NULL;
 SemaphoreHandle_t xSemLedSync = NULL;
+SemaphoreHandle_t xSemNeoSync = NULL;
 SemaphoreHandle_t xBinarySemaphoreInternet = NULL;
 
 // This func will be called in the setup() in main.cpp to allocate memory
@@ -12,6 +13,9 @@ void initGlobal_RTOS_Objects() {
 
     // Create Binary Semaphore for LED
     xSemLedSync = xSemaphoreCreateBinary();
+
+    // Create Binary Semaphore for NeoPixel synchronization
+    xSemNeoSync = xSemaphoreCreateBinary();
 
     // Create Semaphore Internet
     xBinarySemaphoreInternet = xSemaphoreCreateBinary();

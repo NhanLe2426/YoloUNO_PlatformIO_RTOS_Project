@@ -28,5 +28,6 @@ struct SensorData
 // RTOS HANDLES
 extern QueueHandle_t qSensorData;           // The queue contains sensor data
 extern SemaphoreHandle_t xSemLedSync;       // Semaphore signal for Task 1 (LED)
+extern SemaphoreHandle_t xSemNeoSync;       // Semaphore signal for Task 2 (NeoPixel)
 extern SemaphoreHandle_t xBinarySemaphoreInternet;
 #endif
