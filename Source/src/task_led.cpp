@@ -4,7 +4,7 @@
 extern QueueHandle_t qSensorData;
 extern SemaphoreHandle_t xSemLedSync;
 
-void LEDcontrol(void *pvParameters){
+void LED_control(void *pvParameters){
     // Initialize the LED pin as an output mode
     pinMode(LED_GPIO, OUTPUT);
 

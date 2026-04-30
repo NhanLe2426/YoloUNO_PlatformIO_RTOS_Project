@@ -3,6 +3,7 @@
 /* Access global RTOS handles defined in global.h */
 extern QueueHandle_t qSensorData;
 extern SemaphoreHandle_t xSemLedSync;
+extern SemaphoreHandle_t xSemNeoSync;
 
 DHT20 dht20;    // Initialize the DHT20 sensor object
 

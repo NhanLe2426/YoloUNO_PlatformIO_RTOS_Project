@@ -6,7 +6,7 @@
 
 #define LED_GPIO 48
 
-void LEDcontrol(void *pvParameters);
+void LED_control(void *pvParameters);
 
 
 #endif
