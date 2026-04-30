@@ -22,7 +22,7 @@ void temp_humi_monitor(void *pvParameters){
 
         // Check if any reads failed and exit early
         if (isnan(temperature) || isnan(humidity)) {
-            Serial.println("Failed to read from DHT sensor!");
+            Serial.println("[ERROR:] Failed to read from DHT sensor!");
             // temperature = humidity =  -1;
             // return;
         } else {
@@ -30,11 +30,14 @@ void temp_humi_monitor(void *pvParameters){
             currentData.temperature = temperature;
             currentData.humidity = humidity;
 
-            // Push data into queue (Use xQueueOverwrite() to always keep the most up-to-date data).
+            // Push data into queue (Use xQueueOverwrite() to always keep the most up-to-date data)
             xQueueOverwrite(qSensorData, &currentData);
 
-            // Release the Semaphore signals to LED that a temperature update has been received.
+            // Release the Semaphore signals to LED that a temperature update has been received
             xSemaphoreGive(xSemLedSync);
+
+            // Release the Semaphore signals to NeoPixel LED that a humidity update has been received
+            xSemaphoreGive(xSemNeoSync);
 
             // Print the results
             Serial.printf("Humidity: %.2f%%  Temperature: %.2f°C\n", humidity, temperature);

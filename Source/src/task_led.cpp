@@ -4,7 +4,7 @@
 extern QueueHandle_t qSensorData;
 extern SemaphoreHandle_t xSemLedSync;
 
-void led_control(void *pvParameters){
+void LEDcontrol(void *pvParameters){
     // Initialize the LED pin as an output mode
     pinMode(LED_GPIO, OUTPUT);
 
@@ -14,12 +14,14 @@ void led_control(void *pvParameters){
     SensorData localData;         // Local variable
 
     while (1){
-        // Check if the Sensor Task has released the semaphore (new data available)
-        // Timeout is 0 to ensure the blinking loop is never blocked
-        // If there is no signal, skip and move on to the LED blinking behaviors
+        /* Check if the Sensor Task has released the semaphore (new data available)
+         * Timeout is 0 to ensure the blinking loop is never blocked
+         * If there is no signal, skip and move on to the LED blinking behaviors
+         */ 
         if (xSemaphoreTake(xSemLedSync, 0) == pdTRUE) {
-            // If a signal is received, read the temperature from the queue using xQueuePeek()
-            // (xQueuePeek() helps read data WITHOUT losing data in the queue)
+            /* If a signal is received, read the temperature from the queue using xQueuePeek()
+             * (xQueuePeek() helps read data WITHOUT losing data in the queue)
+             */ 
             if (xQueuePeek(qSensorData, &localData, 0) == pdPASS) {
                 float temp = localData.temperature;
 

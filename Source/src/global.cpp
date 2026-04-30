@@ -10,25 +10,11 @@ void initGlobal_RTOS_Objects() {
     // (use xQueueOverwrite to update to the latest version)
     qSensorData = xQueueCreate(1, sizeof(SensorData));
 
-    // Create Binary Semaphore for LED
+    // Create Binary Semaphore for LED synchronization
     xSemLedSync = xSemaphoreCreateBinary();
+
+    // Create Binary Semaphore for NeoPixel synchronization
 
     // Create Semaphore Internet
     xBinarySemaphoreInternet = xSemaphoreCreateBinary();
 }
-
-// float glob_temperature = 0;
-// float glob_humidity = 0;
-
-// String WIFI_SSID;
-// String WIFI_PASS;
-// String CORE_IOT_TOKEN;
-// String CORE_IOT_SERVER;
-// String CORE_IOT_PORT;
-
-// String ssid = "ESP32-YOUR NETWORK HERE!!!";
-// String password = "12345678";
-// String wifi_ssid = "abcde";
-// String wifi_password = "123456789";
-// boolean isWifiConnected = false;
-// SemaphoreHandle_t xBinarySemaphoreInternet = xSemaphoreCreateBinary();
