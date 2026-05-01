@@ -13,7 +13,7 @@ void LED_control(void *pvParameters){
 
     SensorData localData;         // Local variable
 
-    while (1){
+    while (1) {
         /* Check if the Sensor Task has released the semaphore (new data available)
          * Timeout is 0 to ensure the blinking loop is never blocked
          * If there is no signal, skip and move on to the LED blinking behaviors

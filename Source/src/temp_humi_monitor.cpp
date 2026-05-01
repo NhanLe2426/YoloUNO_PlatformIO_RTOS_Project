@@ -4,6 +4,8 @@
 extern QueueHandle_t qSensorData;
 extern SemaphoreHandle_t xSemLedSync;
 extern SemaphoreHandle_t xSemNeoSync;
+extern SemaphoreHandle_t xSemLCDSync;
+extern SemaphoreHandle_t xMutexI2C;
 
 DHT20 dht20;    // Initialize the DHT20 sensor object
 
@@ -14,8 +16,14 @@ void temp_humi_monitor(void *pvParameters){
     
     SensorData currentData;         // Local variable
 
-    while (1){
-        dht20.read();
+    while (1) {
+        // TAKE I2C MUTEX BEFORE READING SENSOR
+        if (xSemaphoreTake(xMutexI2C, portMAX_DELAY) == pdTRUE) {
+            dht20.read();
+            // RELEASE I2C MUTEX IMMEDIATELY AFTER READING
+            xSemaphoreGive(xMutexI2C);
+        }
+
         // Reading temperature in Celsius
         float temperature = dht20.getTemperature();
         // Reading humidity
@@ -39,6 +47,9 @@ void temp_humi_monitor(void *pvParameters){
 
             // Release the Semaphore signals to NeoPixel LED that a humidity update has been received
             xSemaphoreGive(xSemNeoSync);
+
+            // Release the Semaphore signals to LCD that new data is available
+            xSemaphoreGive(xSemLCDSync);
 
             // Print the results
             Serial.printf("Humidity: %.2f%%  Temperature: %.2f°C\n", humidity, temperature);

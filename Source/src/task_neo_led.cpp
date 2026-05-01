@@ -14,7 +14,7 @@ void NeoLED_control(void *pvParameters){
 
     SensorData localData;           // Local variable
 
-    while(1) {                          
+    while (1) {                          
         /* Wait indefinitely for the Sensor Task to release the semaphore.
          * This task will sleep until new sensor data is available.
          */
@@ -33,7 +33,7 @@ void NeoLED_control(void *pvParameters){
                 else if (humi >= 40.0 && humi <= 60.0) {
                     strip.setPixelColor(0, strip.Color(0, 255, 0));
                 }
-                // Condition 3: Humid (Humidity > 70%) => Blue Color
+                // Condition 3: Humid (Humidity > 60%) => Blue Color
                 else {
                     strip.setPixelColor(0, strip.Color(0, 0, 255));
                 }
